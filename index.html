@@ -3,393 +3,94 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>AI丐帮 × AI道人 / 零世界 · 即时落地作战手册</title>
-<meta name="description" content="AI丐帮 × AI道人 / 零世界 即时落地商业作战手册" />
+<title>零世界 · 0 World</title>
+<meta name="description" content="让算力服务于脑力。让每一个孤独的灵魂找到同类。" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
   theme: {
     extend: {
-      colors: { ink:'#0a0a0a', bone:'#f5f1e8', gold:'#f5b301', ember:'#ff6a00' },
-      fontFamily: { hei:['ui-sans-serif','system-ui','PingFang SC','Microsoft YaHei','sans-serif'] }
+      colors: {
+        ink:    '#0a0a0a',
+        bone:   '#f5f1e8',
+        gold:   '#d4a843',
+        ember:  '#c25a2a',
+        amethyst:'#6b4ea8',
+      },
+      fontFamily: {
+        hei:  ['ui-sans-serif','system-ui','PingFang SC','Microsoft YaHei','sans-serif'],
+        mono: ['ui-monospace','SFMono-Regular','Menlo','Consolas','monospace'],
+        serif:['"Cormorant Garamond"','"Source Han Serif SC"','Georgia','serif']
+      }
     }
   }
 }
 </script>
 <style>
   html,body{background:#0a0a0a;color:#f5f1e8;-webkit-font-smoothing:antialiased}
-  .slide-grid{
+  /* walnut grain — very subtle radial noise */
+  .walnut{
+    background-color:#0a0a0a;
     background-image:
-      linear-gradient(rgba(245,179,1,.06) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(245,179,1,.06) 1px,transparent 1px);
-    background-size:40px 40px;
+      radial-gradient(ellipse at 20% 30%, rgba(212,168,67,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(107,78,168,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(245,241,232,0.02) 0%, transparent 70%);
   }
-  .tab-active{color:#f5b301;border-color:#f5b301}
-  .tab{border-bottom:2px solid transparent;transition:all .15s}
+  .tab-active{color:#d4a843;border-color:#d4a843}
+  .tab{border-bottom:1px solid transparent;transition:all .2s}
+  .rule{height:1px;background:linear-gradient(90deg,transparent,rgba(245,241,232,0.2),transparent)}
+  .quiet{color:rgba(245,241,232,0.5)}
+  .gold-soft{color:#d4a843}
   details>summary{list-style:none;cursor:pointer}
   details>summary::-webkit-details-marker{display:none}
+  /* page transitions */
+  .view{animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 </style>
 </head>
-<body class="font-hei">
+<body class="font-hei walnut">
 
 <!-- NAV -->
-<nav class="sticky top-0 z-50 border-b border-white/10 bg-ink/85 backdrop-blur">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="#hero" data-tab="hero" class="text-lg font-bold tracking-wider text-gold">AI丐帮 × 零世界</a>
-    <div class="flex gap-6 text-sm text-bone/80">
-      <a href="#hero"   data-tab="hero"   class="tab tab-active hover:text-gold">封面</a>
-      <a href="#ppt"    data-tab="ppt"    class="tab hover:text-gold">PPT</a>
-      <a href="#manual" data-tab="manual" class="tab hover:text-gold">作战手册</a>
-      <a href="#tables" data-tab="tables" class="tab hover:text-gold">执行表格</a>
+<nav class="sticky top-0 z-50 border-b border-white/5 bg-ink/85 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+    <a href="#zero" data-tab="zero" class="font-serif text-lg tracking-[0.2em] text-gold">零世界</a>
+    <div class="flex items-center gap-5 text-xs tracking-[0.15em] text-bone/70 md:text-sm md:gap-7">
+      <a href="#zero"      data-tab="zero"      class="tab tab-active hover:text-gold">零世界</a>
+      <a href="#log"       data-tab="log"       class="tab hover:text-gold">盖帮日志</a>
+      <a href="#code"      data-tab="code"      class="tab hover:text-gold">帮规</a>
+      <a href="#daoist"    data-tab="daoist"    class="tab hover:text-gold">护道人</a>
+      <a href="#builder"   data-tab="builder"   class="tab hover:text-gold">盖人</a>
+      <span class="mx-1 quiet">·</span>
+      <button id="lang-toggle" class="tab text-bone/60 hover:text-gold" title="language">中 / EN</button>
     </div>
   </div>
 </nav>
 
 <main class="min-h-screen">
-
-<!-- ============== HERO ============== -->
-<section id="hero" class="view slide-grid relative flex min-h-[calc(100vh-65px)] items-center">
-  <div class="mx-auto max-w-5xl px-6 py-24">
-    <p class="mb-4 text-sm tracking-[0.3em] text-gold">AI 时代 · 新型价值交换</p>
-    <h1 class="text-5xl font-black leading-tight md:text-7xl">
-      AI丐帮 <span class="text-gold">×</span> AI道人<br/>
-      <span class="text-bone/70">/ 零世界</span>
-    </h1>
-    <p class="mt-8 max-w-2xl text-lg text-bone/80 md:text-xl">
-      12个普通人组成的 AI 军团，用 AI 帮商家解决真实问题，用价值换饭吃、换资源、换机会。
-    </p>
-    <p class="mt-4 max-w-2xl text-base text-bone/60">
-      不白吃，不白拿。老板觉得值，再请饭；不值，我们自己买单。
-    </p>
-    <div class="mt-12 flex flex-wrap gap-4">
-      <a href="#ppt"    data-tab="ppt"    class="rounded bg-gold px-6 py-3 font-bold text-ink hover:bg-ember hover:text-bone">查看 PPT →</a>
-      <a href="#manual" data-tab="manual" class="rounded border border-bone/30 px-6 py-3 font-bold text-bone hover:border-gold hover:text-gold">作战手册</a>
-      <a href="#tables" data-tab="tables" class="rounded border border-bone/30 px-6 py-3 font-bold text-bone hover:border-gold hover:text-gold">执行表格</a>
-    </div>
-    <div class="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-      <div class="border-l-2 border-gold pl-4"><div class="text-3xl font-black text-gold">12</div><div class="text-sm text-bone/60">AI军团</div></div>
-      <div class="border-l-2 border-gold pl-4"><div class="text-3xl font-black text-gold">7天</div><div class="text-sm text-bone/60">冷启动</div></div>
-      <div class="border-l-2 border-gold pl-4"><div class="text-3xl font-black text-gold">30天</div><div class="text-sm text-bone/60">验证模型</div></div>
-      <div class="border-l-2 border-gold pl-4"><div class="text-3xl font-black text-gold">10家</div><div class="text-sm text-bone/60">商家案例</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============== PPT ============== -->
-<section id="ppt" class="view hidden">
-  <div id="ppt-deck"></div>
-</section>
-
-<!-- ============== MANUAL ============== -->
-<section id="manual" class="view hidden">
-  <header class="border-b border-white/10 px-6 py-16 text-center">
-    <p class="text-sm tracking-[0.3em] text-gold">完整商业作战手册</p>
-    <h1 class="mt-4 text-4xl font-black md:text-5xl">AI丐帮 × AI道人 / 零世界</h1>
-  </header>
-  <div id="manual-body"></div>
-</section>
-
-<!-- ============== TABLES ============== -->
-<section id="tables" class="view hidden px-6 py-16">
-  <div class="mx-auto max-w-5xl">
-    <header class="mb-12 text-center">
-      <p class="text-sm tracking-[0.3em] text-gold">团队执行表格</p>
-      <h1 class="mt-4 text-4xl font-black md:text-5xl">每天照着干</h1>
-    </header>
-    <div id="tables-body"></div>
-  </div>
-</section>
-
+  <section id="zero"   class="view"></section>
+  <section id="log"    class="view hidden"></section>
+  <section id="code"   class="view hidden"></section>
+  <section id="daoist" class="view hidden"></section>
+  <section id="builder" class="view hidden"></section>
 </main>
 
-<footer class="border-t border-white/10 px-6 py-10 text-center text-xs text-bone/40">
-  先开干，再优化；先真实，再完美。 · AI丐帮 × AI道人 / 零世界
+<footer class="border-t border-white/5 px-6 py-12 text-center text-xs tracking-[0.2em] quiet">
+  以物换物　·　以心传心
 </footer>
 
-<script>
-/* ====== DATA: 42 SLIDES ====== */
-const slides = [
-  {page:1,title:'AI丐帮 × AI道人 / 零世界',subtitle:'即时落地商业作战方案',body:['用 AI 进入真实商业世界','用价值换饭，用案例获客','用普通人逆袭故事打造长期 IP'],note:'这是内部作战方案，不是融资 BP。目标是明天开干，7 天验证，30 天跑通。'},
-  {page:2,title:'一句话定位',body:['12 个普通人组成 AI 军团','帮助商家解决真实问题','用价值换饭吃、换资源、换机会'],note:'项目核心不是吃饭，而是用饭作为价值验证的结果。'},
-  {page:3,title:'项目本质',subtitle:'不是乞讨，不是白嫖，不是薅羊毛',body:['AI丐帮 = AI 时代的新型价值交换','我们交付：可立刻使用的 AI 营销方案','商家回报：一顿饭、资源、合作机会'],note:'这句话必须成为所有内容的底层表达。'},
-  {page:4,title:'核心话术',body:['老板，我们不白吃。','我们用 AI 帮你现场解决一个真实问题。','你觉得值，请我们吃一顿；不值，我们自己买单。'],note:'所有成员必须背熟。它同时解决舆论风险和合作边界。'},
-  {page:5,title:'为什么现在必须做',body:['第一阶段：AI 工具科普（已过）','第二阶段：AI 场景落地（正当时）','第三阶段：AI 改造现实世界（即将到来）','我们做现实世界 AI 实战队，不做第 1000 个教程号']},
-  {page:6,title:'北极星指标',body:['7 天：发布 20 条内容，完成首家拍摄，收集 50 条线索','30 天：10 家案例，300 条线索，10-30 个付费客户','粉丝目标：双平台 3 万 - 10 万','月收入目标：3 万 - 10 万'],note:'用结果倒逼执行，不等完美。'},
-  {page:7,title:'AI 内容市场趋势',body:['用户不再满足于学工具，开始关心赚钱','教程号同质化严重，留存差','真实落地 + 商家场景 = 新蓝海']},
-  {page:8,title:'本地生活商家痛点',body:['不会拍短视频，不会写小红书','不懂年轻人，不会做团购','请代运营太贵，自己学没时间','店里有特色，但表达不出来']},
-  {page:9,title:'餐饮行业切入价值',body:['有菜品：天然视觉素材','有空间：适合拍摄','有老板：愿意出镜','有结果：可即时验证']},
-  {page:10,title:'竞品空位',body:['AI 教程号：太虚，不落地','探店号：太浅，只会吃','咨询号：太端，离小商家远','AI丐帮 = 三者结合 + 真实交付']},
-  {page:11,title:'AI丐帮差异化',body:['AI 实战真人秀','+ 商家改造','+ 普通人逆袭','+ 本地生活服务']},
-  {page:12,title:'成都切入优势',body:['美食密度高，传播性强','年轻用户多，接受度高','本地达人资源丰富','先做成都样板，再复制城市']},
-  {page:13,title:'AI丐帮 · 账号定位',subtitle:'主流量账号',body:['破圈、案例、商家线索','简介：12 个普通人组成的 AI 军团，用 AI 帮商家解决问题','关键词：野生、真实、敢干、不装专家']},
-  {page:14,title:'AI丐帮 · 人设',body:['未经规训的 AI 野生军团','两个月前还不会 AI，现在能交付方案','12 人集体出征，强视觉','真实交付，不装专家']},
-  {page:15,title:'AI道人 / 零世界 · 定位',subtitle:'高维品牌 · 精神母体',body:['老板个人 IP / 公司精神账号','讲 AI 时代普通人的机会','讲零世界长期愿景','承接信任、资源、企业合作']},
-  {page:16,title:'双账号关系',body:['AI丐帮是形，AI道人是神','AI丐帮负责破圈，AI道人负责升维','AI丐帮负责案例，AI道人负责认知','一个负责热闹，一个负责厚度']},
-  {page:17,title:'双平台打法',body:['小红书：图文复盘、商家案例、长尾搜索','抖音：冲突、现场、爆发传播','同一素材改编成两个平台版本']},
-  {page:18,title:'首发主题',body:['AI丐帮第一次出山','去成都餐厅用 AI 换一顿饭','打出『第一次出山』的仪式感']},
-  {page:19,title:'首发场景',body:['优先选挑爷投资 / 合作的餐厅','叠加成都美食 + 网红餐厅资源背书','老板愿意出镜，菜品有记忆点'],note:'资源要用在第一枪。'},
-  {page:20,title:'视频爆点',body:['12 人军团视觉冲击','AI 现场交付（不是 PPT）','用价值换饭的强冲突','老板真实反馈（接受 / 拒绝）']},
-  {page:21,title:'视频结构',body:['钩子 → 身份 → 谈判','→ 诊断 → 交付 → 反馈','→ 结果 → 招募下一站','所有视频按此结构复制']},
-  {page:22,title:'防负面话术',body:['禁止词：白嫖、薅羊毛、免费吃、占便宜','标准词：价值交换、不白吃、老板认可才请','评论区统一引导：留下城市和行业，下一站可能去你那里']},
-  {page:23,title:'明天 · 上午执行清单',body:['注册：小红书 + 抖音 × AI丐帮、AI道人 共 4 个账号','完成头像、简介、背景图','准备团队 12 人合照 + 单人照 + 项目截图']},
-  {page:24,title:'明天 · 中午执行清单',body:['确定总导演、商务、拍摄、脚本、AI 交付、数据等岗位','组建执行群，明确每人任务卡','没有分工，现场一定乱']},
-  {page:25,title:'明天 · 下午执行清单',body:['对接首家餐厅，确认拍摄授权','准备问诊问题清单','准备 AI 交付模板（标题、脚本、菜单、套餐）','每人准备一句个人故事']},
-  {page:26,title:'明天 · 晚上执行清单',body:['发布预热：小红书 3 篇 + 抖音 2 条 + AI道人 1 条','评论区统一引导话术','记录发布时间、互动数据','晚上 30 分钟复盘']},
-  {page:27,title:'7 天冷启动路线图',body:['Day1 预热 · Day2 拍摄 · Day3 首发','Day4 幕后 · Day5 招募 · Day6 直播','Day7 复盘 + 第二站启动','每天都有目标，不允许空转']},
-  {page:28,title:'30 天商业验证路线图',body:['第 1 周：模型验证','第 2 周：案例复制（3 家）','第 3 周：产品测试（AI 商家急救包上线）','第 4 周：品牌放大（10 家案例合集）']},
-  {page:29,title:'内容系列 · AI 蹭饭',body:['主打系列，每集一家商家','现场挑战 + 老板反馈 + 交付展示','转化目标：收集商家报名']},
-  {page:30,title:'内容系列 · 普通人逆袭',body:['两个月前不会 AI，现在做项目','个人口播 + 工作现场 + 前后对比','转化目标：训练营、粉丝信任']},
-  {page:31,title:'内容系列 · 商家 AI 改造',body:['30 分钟帮餐厅重写菜单','AI 帮老板设计团购套餐','AI 帮农产品卖出高级感','转化目标：销售 AI 商家急救包']},
-  {page:32,title:'内容系列 · 12 人军团群像',body:['团队真人秀、人物短片','谁最会写小红书标题？谁最会谈判？','转化目标：增强粉丝粘性']},
-  {page:33,title:'内容系列 · 老板 / AI道人',body:['老板口播、认知短视频','为什么让普通人立刻学 AI','零世界愿景','转化目标：高客单合作、企业内训']},
-  {page:34,title:'内容系列 · AI 工具实战与产品孵化',body:['录屏 + 案例 + 模板','AI 产品从 0 到 1 的过程','转化目标：训练营、工具包、资源合作']},
-  {page:35,title:'短期变现 · 0-30 天',body:['AI 商家急救包：399 / 999 / 1999 元','小额咨询：199 / 399 / 999 元','商家联名内容：1000-3000 元','小课预售：99 / 199 / 399 元']},
-  {page:36,title:'中期变现 · 30-90 天',body:['AI 上门改造：3999-19999 元','AI 普通人训练营：399-2999 元','企业 AI 内训：9800-39800 元','短视频轻代运营：2999-9999 元 / 月']},
-  {page:37,title:'长期变现 · 90 天以后',body:['城市分舵：加盟费 + 服务分成','AI 工具平台：会员费 + 模板包','商家联盟：本地消费地图','零世界生态：教育、健康、农业、婚恋、本地生活']},
-  {page:38,title:'线索转化路径',body:['内容曝光 → 评论 / 私信','→ 商家报名表单','→ 电话沟通 / 上门诊断','→ 急救包成交 → 上门改造 → 长期合作']},
-  {page:39,title:'团队分工',body:['总导演、商务、主持、脚本','拍摄、剪辑、小红书、抖音','AI 交付、数据、私信、统筹','每人一个岗位，不允许并岗模糊']},
-  {page:40,title:'每日 SOP',body:['9:00 晨会 15 分钟','10:00 选题会 30 分钟','白天：拍摄 / 剪辑 / 发布 / 评论维护','晚上：数据复盘 + 商家线索跟进']},
-  {page:41,title:'风险控制',body:['被骂白嫖 → 反复强调价值交换、展示交付','被认为作秀 → 展示老板原话和方案截图','团队现场混乱 → 每人固定岗位 + 任务卡','流量大但接不住 → 私信值班 + 线索表']},
-  {page:42,title:'先开干，再优化',subtitle:'先真实，再完美',body:['明天注册账号','7 天跑通模型','30 天验证商业','90 天复制城市'],note:'这是作战手册，不是 PPT。看完就去干。'}
-];
+<!-- content modules will be appended by later commits -->
+<script id="i18n-base">
+/* tiny i18n + router scaffold; content modules attach renderers via window.ZW */
+window.ZW = window.ZW || { lang: 'zh', renderers: {}, data: {} };
 
-/* ====== DATA: MANUAL ====== */
-const manual = [
-  {title:'一、项目总定位',paragraphs:[
-    '主流量账号：AI丐帮。高维品牌 / 精神母体账号：AI道人 / 零世界。',
-    '一句话定位：一群普通人组成 AI 军团，走进真实商业世界，用 AI 帮商家解决真实问题，用价值换饭吃、换资源、换机会，最终打造普通人 AI 逆袭的内容 IP 和商业服务平台。',
-    '项目本质：AI 时代的新型价值交换。核心话术：老板，我们不白吃。我们用 AI 帮你现场解决一个真实问题。你觉得值，请我们吃一顿；不值，我们自己买单。',
-    '项目关键词：快、真实、能落地、能拍摄、能传播、能成交、能复制。'
-  ]},
-  {title:'二、项目战略判断',paragraphs:[
-    '为什么 AI丐帮比普通教程号更容易火：普通教程号同质化，AI丐帮有真实商家、有冲突、有结果、有团队人物关系、有普通人逆袭叙事。',
-    '为什么用 AI 换饭有传播性：天然具备冲突、悬念、结果、参与感四要素，观众可以评论『下一站来我店』，内容本身能收集商家线索。',
-    '为什么必须规避白嫖观感：一旦被定义为占便宜，项目价值会崩。统一表达：用价值换饭、不白吃、老板认可才请、不认可自己买单。',
-    '为什么普通人团队是优势：用户看腻了专家，反而愿意看普通人变强。人设不是『我专业你信我』，而是『我们也曾不会，但我们正在改变』。',
-    '为什么要双账号矩阵：AI丐帮是形、AI道人是神。一个负责破圈流量、一个负责升维信任。低客单靠丐帮、高客单靠道人。',
-    '为什么按天和周推进：AI 热点变化快、本地生活窗口短、团队需要靠实战成长。先开干，再优化；先真实，再完美。'
-  ]},
-  {title:'三、市场分析',paragraphs:[
-    'AI 内容市场已从第一阶段（工具科普）进入第二阶段（场景落地），未来进入第三阶段（现实世界改造）。AI丐帮正好切入第二阶段，并提前布局第三阶段。',
-    '本地生活商家痛点：不会拍短视频、不会写小红书、不懂年轻人、不会做团购、不会用 AI、请代运营太贵、自己学没时间。',
-    '餐饮行业是最佳切入点：高频、强视觉、可即时验证。AI 可以帮餐饮解决表达、传播、转化三大问题。',
-    '小红书适合图文复盘、本地种草、案例展示。抖音适合冲突、真人秀、爆发传播。两个平台必须同步运营，同素材改编。',
-    'AI丐帮差异化：AI 实战真人秀 + 商家改造 + 普通人逆袭 + 本地生活服务，四位一体。',
-    '成都切入优势：美食密度高、年轻用户多、达人资源丰富、内容土壤强。后续可复制到重庆、西安、杭州、深圳、广州、武汉、长沙、南京、郑州。'
-  ]},
-  {title:'四、双账号定位',paragraphs:[
-    'AI丐帮一句话定位：12 个普通人组成的 AI 军团，用 AI 帮商家解决真实问题，用价值换饭吃。',
-    'AI丐帮简介：我们是 12 个普通人组成的 AI 军团，用 AI 帮商家解决问题，用价值换饭吃。第一站：成都。不白吃，不白拿。',
-    'AI丐帮人设标签：普通人、AI 野生军团、12 人出山、不装专家、真实交付、用价值换饭、成都第一站、商家急救队、AI 游击队、普通人逆袭。',
-    'AI道人 / 零世界一句话定位：老板带领普通人用 AI 重构命运的认知号，讲 AI 时代的机会、方法论和零世界愿景。',
-    'AI道人老板人设：低调、高维、商业老炮、资源整合者、普通人 AI 引路人、零世界构建者，不卖焦虑、不装神秘、讲真话。',
-    '是否露脸建议：第 1 阶段半露脸或不露脸（背影、侧脸、手写板、会议现场、旁白），第 2 阶段项目跑出案例后逐步露脸，承接高客单合作。'
-  ]},
-  {title:'五、首发视频方案',paragraphs:[
-    '首发主题：AI丐帮第一次出山，去成都餐厅用 AI 换一顿饭。优先选挑爷投资或合作过的餐厅。',
-    '前 3 秒钩子示例：『我们今天不带钱，想靠 AI 吃一顿饭。』『12 个普通人，今天要挑战用 AI 换饭。』『老板，如果方案没用，我们自己买单。』',
-    '视频结构：钩子 → 团队身份反差 → 找老板谈判 → 现场诊断 → 团队分工开干 → 交付展示 → 老板反馈 → 结果 → 招募下一站。',
-    '现场必交付：门店一句话卖点、目标用户画像、10 条小红书标题、3 篇小红书笔记、3 条抖音脚本、菜单文案优化、2 套团购套餐、5 条朋友圈文案、老板个人 IP 口播、拍摄分镜、评论区回复话术、节日活动方案。',
-    '老板反馈采访问题：一开始觉得靠谱吗？AI 内容能直接用吗？哪部分最有价值？市场价值多少钱？愿不愿意请饭？愿不愿意继续合作？',
-    '拍摄注意：收音清楚、老板反馈真实、不拍成讨饭、保留翻车过程、菜品镜头好看、门头清晰、结尾必须有结果。'
-  ]},
-  {title:'六、明天立即执行清单',paragraphs:[
-    '上午：注册小红书 + 抖音 × AI丐帮、AI道人 共 4 个账号，完成头像、简介、背景图。准备团队 12 人合照、单人照、AI 项目截图。',
-    '中午：确定总导演、商务、拍摄、脚本、小红书、抖音、AI 交付、数据、私信、后勤、统筹等岗位负责人。',
-    '下午：对接首家餐厅、确认拍摄授权、准备问诊问题清单、准备 AI 交付模板、每人准备一句个人故事、起草首发预热文案。',
-    '晚上：发布小红书 3 篇 + 抖音 2 条 + AI 道人 1 条预热内容；评论区统一引导『留下城市和行业，下一站可能去你那里』；记录数据；晚上 30 分钟复盘。'
-  ]},
-  {title:'七、7 天冷启动计划',paragraphs:[
-    'Day 1 账号注册 + 预热启动。目标：发布第一批预热、确认首家餐厅、商家线索 3 条。',
-    'Day 2 首家餐厅拍摄。目标：完成首发素材、老板采访 3 段、AI 交付 1 套完整。',
-    'Day 3 首发正片发布。目标：抖音主片、小红书图文 + 视频双版本、强运营评论区、商家线索 20 条。',
-    'Day 4 幕后内容爆发。目标：发布团队准备过程、方案制作过程、老板反应、翻车花絮、AI 交付截图。',
-    'Day 5 第二站招募。目标：商家报名 10 家、有效候选 3 家、确定第二站。',
-    'Day 6 直播复盘首秀。目标：直播 1 小时、在线峰值 100+、私信咨询 50 条、商家线索 20 条。',
-    'Day 7 周复盘 + 第二站启动。目标：7 天内容 20 条以上、商家线索 50 条以上、双平台粉丝 3000-10000、第二家商家确认。'
-  ]},
-  {title:'八、30 天商业验证计划',paragraphs:[
-    '第 1 周模型验证：发布 20 条、首家拍摄、50 条线索、第一套 AI 方案模板。',
-    '第 2 周案例复制：发布 25 条、3 家商家拍摄、3 套案例复盘、80 条线索。',
-    '第 3 周产品测试：AI 商家急救包上线、成交 3-10 个小额客户、完成报价单。',
-    '第 4 周品牌放大：发布 30 条、10 家案例合集、累计 300 条线索、10-30 个付费客户、1-3 个企业内训意向。',
-    '30 天 KPI：内容 100+、案例 10 家、线索 300、付费客户 10-30、粉丝 3 万 -10 万、月收入 3 万 -10 万、标准产品 3 个。',
-    '30 天后可销售产品：AI 商家急救包、AI 上门改造、AI 普通人训练营、企业 AI 内训、短视频轻代运营、老板 AI 战略工作坊。'
-  ]},
-  {title:'九、商业变现模型',paragraphs:[
-    '短期 0-30 天：AI 商家急救包 399/999/1999 元；小额咨询 199/399/999 元；商家联名内容 1000-3000 元；小课预售 99/199/399 元。',
-    '中期 30-90 天：AI 上门改造 3999-19999 元；AI 普通人训练营 399-2999 元；企业 AI 内训 9800-39800 元；短视频轻代运营 2999-9999 元 / 月。',
-    '长期 90 天后：城市分舵（加盟费 + 服务分成）、AI 工具平台（会员费 + 模板包）、商家联盟（本地消费地图）、零世界生态（教育、健康、农业、婚恋、本地生活）。'
-  ]},
-  {title:'十、风险控制',paragraphs:[
-    '被骂白嫖：反复强调不白吃、展示交付物、老板认可才吃、不认可自己买单。',
-    '被认为作秀：展示真实方案、老板原话、前后对比、保留翻车过程。',
-    '商家不配合：提前沟通、确认授权、明确范围、准备备选商家。',
-    '团队现场混乱：每人固定岗位、拍摄前 10 分钟会、所有人有任务卡。',
-    '交付太虚：所有方案必须能复制使用，不讲空泛战略。',
-    '账号定位跑偏：所有内容围绕『AI 帮商家解决问题』，不做纯探店、纯吃播、纯教程。',
-    '老板号过早商业化：前期少卖课，多讲认知和价值观。',
-    '流量大但接不住：私信值班、线索表、统一回复模板。',
-    '粉丝增长但无法变现：从第 7 天开始测试小额产品。',
-    '团队执行断档：每日晨会、每晚复盘、表格管理、固定负责人。'
-  ]},
-  {title:'十一、团队执行 SOP',paragraphs:[
-    '每日晨会 SOP：9:00、15 分钟。昨日数据、今日目标、今日选题、商家状态、拍摄任务、风险提醒、老板拍板事项。',
-    '选题会 SOP：10:00、30 分钟。看昨日爆款评论、选 5 个今日选题、定平台版本、写标题、定拍摄、定发布时间。',
-    '拍摄 SOP：拍摄前确认脚本、机位、收音、授权、模板。拍摄中按门头→谈判→诊断→开干→交付→反馈→结尾顺序。',
-    '剪辑 SOP：前 3 秒钩子、15 秒讲清人物目标、中段交付、后段反馈、结尾引导。必须剪出主片、花絮、老板切片、团队切片、交付切片。',
-    '发布 SOP：检查标题冲突、封面、不白吃表达、评论引导、话题标签、记录发布时间。发布后 30 分钟集中回复、2 小时记录数据、24 小时复盘。',
-    '评论区维护 SOP：优先回复商家报名、白嫖质疑、工具询问、合作询问、城市点名。不吵架、不阴阳怪气、多解释价值交换、引导留下城市和行业。',
-    '商家线索 SOP：字段含日期、平台、昵称、城市、行业、门店问题、联系方式、意向等级、跟进人、下一步。等级 A 可拍摄付费、B 愿意咨询、C 围观、D 暂不合适。',
-    '数据复盘 SOP：每日记录发布数量、浏览、点赞、评论、收藏、转发、粉丝、私信、线索、付费意向。复盘哪个标题最好、哪个开头最好、哪个内容带线索。',
-    '每周复盘 SOP：输出本周爆款、失败内容、线索总数、成交机会、团队问题、下周选题、下周商家名单、需老板拍板的资源。',
-    '老板资源调用 SOP：老板只处理重要商家资源、高价值合作、团队方向纠偏、产品定价拍板。普通执行问题不占用老板时间。'
-  ]}
-];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+window.ZW.esc = esc;
 
-/* ====== DATA: TABLES ====== */
-const tables = [
-  {title:'1. 明日执行表',headers:['时段','任务','负责人','产出','完成'],rows:[
-    ['上午','注册 4 个账号 + 包装','统筹','账号上线','□'],
-    ['上午','团队 12 人素材准备','海冰','照片 + 截图','□'],
-    ['中午','确认岗位分工','吴姣','分工表','□'],
-    ['下午','对接首家餐厅','杨科','拍摄授权','□'],
-    ['下午','准备 AI 交付模板','荣姐','模板包','□'],
-    ['下午','起草预热文案','荣姐','5 条文案','□'],
-    ['晚上','发布预热内容','石尧','5 条上线','□'],
-    ['晚上','数据记录 + 复盘','炀','数据表','□']
-  ]},
-  {title:'2. 7 天内容发布表',headers:['日期','平台','内容类型','标题','负责人','状态'],rows:[
-    ['Day1','小红书','预热图文','我们组了一个 AI丐帮','荣姐','□'],
-    ['Day1','抖音','预热宣言','12 人出镜：我们是 AI丐帮','石尧','□'],
-    ['Day2','—','拍摄首发','—','全员','□'],
-    ['Day3','抖音','首发主片','AI丐帮第一次出山','石尧','□'],
-    ['Day3','小红书','首发图文','用 AI 换饭吃 · 全过程','荣姐','□'],
-    ['Day4','双平台','幕后花絮','现场差点翻车','海冰','□'],
-    ['Day5','双平台','第二站招募','下一家敢不敢让我们去？','娜娜','□'],
-    ['Day6','抖音','直播复盘','AI丐帮第一次出山复盘','娜娜','□'],
-    ['Day7','双平台','周复盘 + 预告','下周第二站启动','吴姣','□']
-  ]},
-  {title:'3. 商家线索收集表',headers:['日期','平台','昵称','城市','行业','门店问题','联系方式','意向','跟进人','下一步'],rows:[
-    ['','','','','','','','A/B/C/D','',''],
-    ['','','','','','','','','',''],
-    ['','','','','','','','','',''],
-    ['','','','','','','','','','']
-  ]},
-  {title:'4. 团队分工表',headers:['姓名','岗位','核心职责','协作对象'],rows:[
-    ['吴姣','总负责人','方向、资源、谈判','全员'],
-    ['杨科','商务拓展','达人、品牌、渠道','外联'],
-    ['石尧','运营负责人','平台、投放、数据','内容 / 投放'],
-    ['娜娜','直播运营','直播、活动、互动','执行'],
-    ['荣姐','内容策略','脚本、爆款、逻辑','创作'],
-    ['可','用户运营','社群、口碑、私域','用户'],
-    ['海冰','后期制作','剪辑、图文、视觉','荣姐'],
-    ['炀','数据分析','复盘、投放、竞品','石尧'],
-    ['秋霞','技术支持','AI 工具、效率','全员']
-  ]},
-  {title:'5. 首发视频拍摄清单',headers:['类别','项目','完成'],rows:[
-    ['设备','主机位相机','□'],
-    ['设备','副机位手机','□'],
-    ['设备','无线麦 ×2','□'],
-    ['设备','稳定器 / 三脚架','□'],
-    ['场地','餐厅授权确认','□'],
-    ['场地','拍摄区域确认','□'],
-    ['人员','12 人到齐','□'],
-    ['人员','统一着装','□'],
-    ['内容','脚本最终版','□'],
-    ['内容','AI 交付模板','□'],
-    ['内容','采访问题清单','□'],
-    ['内容','评论区话术','□']
-  ]},
-  {title:'6. AI 现场交付清单',headers:['交付物','数量 / 规格','负责人','完成'],rows:[
-    ['门店一句话卖点','1 条','荣姐','□'],
-    ['目标用户画像','1 份','炀','□'],
-    ['小红书爆款标题','10 条','荣姐','□'],
-    ['小红书笔记正文','3 篇','荣姐','□'],
-    ['抖音短视频脚本','3 条','石尧','□'],
-    ['菜单文案优化','1 套','可','□'],
-    ['团购套餐建议','2 套','杨科','□'],
-    ['朋友圈引流文案','5 条','可','□'],
-    ['老板 IP 口播','1 段 30 秒','娜娜','□'],
-    ['拍摄分镜','1 份','海冰','□'],
-    ['评论区话术','1 套','可','□'],
-    ['节日活动方案','1 套','杨科','□']
-  ]},
-  {title:'7. 数据复盘表（每日）',headers:['日期','平台','发布数','浏览','点赞','评论','收藏','转发','粉丝净增','私信','线索'],rows:[
-    ['','小红书','','','','','','','','',''],
-    ['','抖音','','','','','','','','',''],
-    ['','AI道人','','','','','','','','','']
-  ]},
-  {title:'8. 风险应对话术表',headers:['风险类型','用户典型评论','标准回应'],rows:[
-    ['白嫖质疑','你们就是白嫖','我们不白吃。现场交付 AI 方案，老板觉得值再请；不值我们自己买单。'],
-    ['作秀质疑','这就是摆拍','所有方案截图和老板原话都会发出来，欢迎对照。'],
-    ['效果质疑','AI 方案能用吗？','老板现场评价。如果他说不能用，我们当场改到能用。'],
-    ['招募请求','来我们城市！','留下城市 + 行业 + 门店问题，我们按顺序筛选下一站。'],
-    ['付费咨询','我想付费','私信留下联系方式，我们 24 小时内对接。']
-  ]}
-];
+const VIEWS = ['zero','log','code','daoist','builder'];
 
-/* ====== ESCAPE ====== */
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-
-/* ====== RENDER PPT ====== */
-function renderPPT(){
-  const deck = document.getElementById('ppt-deck');
-  deck.innerHTML = slides.map(s=>`
-    <article class="slide-grid min-h-screen border-b border-white/5">
-      <div class="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-20">
-        <div class="mb-6 flex items-center gap-4 text-sm text-gold">
-          <span class="font-mono">P${String(s.page).padStart(2,'0')}</span>
-          <span class="h-px flex-1 bg-gold/30"></span>
-        </div>
-        <h2 class="text-4xl font-black leading-tight md:text-5xl">${esc(s.title)}</h2>
-        ${s.subtitle?`<p class="mt-4 text-lg text-bone/70 md:text-xl">${esc(s.subtitle)}</p>`:''}
-        <ul class="mt-10 space-y-4">
-          ${s.body.map(l=>`<li class="flex gap-4 text-base text-bone/90 md:text-lg"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"></span><span>${esc(l)}</span></li>`).join('')}
-        </ul>
-        ${s.note?`<div class="mt-12 border-l-2 border-ember/60 bg-ember/5 px-5 py-3 text-sm text-bone/60">演讲备注：${esc(s.note)}</div>`:''}
-      </div>
-    </article>`).join('');
-}
-
-/* ====== RENDER MANUAL ====== */
-function renderManual(){
-  const root = document.getElementById('manual-body');
-  root.innerHTML = manual.map(s=>`
-    <section class="border-b border-white/5 px-6 py-16">
-      <div class="mx-auto max-w-4xl">
-        <h2 class="mb-8 text-3xl font-black text-gold md:text-4xl">${esc(s.title)}</h2>
-        <div class="space-y-6 leading-relaxed text-bone/90">
-          ${s.paragraphs.map(p=>`<p>${esc(p)}</p>`).join('')}
-        </div>
-      </div>
-    </section>`).join('');
-}
-
-/* ====== RENDER TABLES ====== */
-function renderTables(){
-  const root = document.getElementById('tables-body');
-  root.innerHTML = tables.map(t=>`
-    <div class="mb-12">
-      <h3 class="mb-4 text-xl font-bold text-gold">${esc(t.title)}</h3>
-      <div class="overflow-x-auto rounded border border-white/10">
-        <table class="w-full text-left text-sm">
-          <thead class="bg-white/5 text-bone/80"><tr>
-            ${t.headers.map(h=>`<th class="px-4 py-3 font-bold">${esc(h)}</th>`).join('')}
-          </tr></thead>
-          <tbody>
-            ${t.rows.map(r=>`<tr class="border-t border-white/5">${r.map(c=>`<td class="px-4 py-3 align-top text-bone/80">${esc(c)}</td>`).join('')}</tr>`).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>`).join('');
-}
-
-/* ====== TAB SWITCH ====== */
-const views = ['hero','ppt','manual','tables'];
 function switchTab(name){
-  if(!views.includes(name)) name = 'hero';
-  views.forEach(v=>{
+  if(!VIEWS.includes(name)) name = 'zero';
+  VIEWS.forEach(v=>{
     const el = document.getElementById(v);
     if(el) el.classList.toggle('hidden', v!==name);
   });
@@ -398,20 +99,374 @@ function switchTab(name){
   });
   window.scrollTo({top:0,behavior:'instant'});
   if(history.replaceState) history.replaceState(null,'','#'+name);
+  // builder forced English regardless of global
+  renderAll();
 }
-document.addEventListener('click',e=>{
+window.ZW.switchTab = switchTab;
+
+function renderAll(){
+  VIEWS.forEach(v=>{
+    const fn = window.ZW.renderers[v];
+    const el = document.getElementById(v);
+    if(fn && el) el.innerHTML = fn(window.ZW.lang);
+  });
+}
+window.ZW.renderAll = renderAll;
+
+document.addEventListener('click', e=>{
   const a = e.target.closest('[data-tab]');
   if(!a) return;
   e.preventDefault();
   switchTab(a.dataset.tab);
 });
 
-/* ====== INIT ====== */
-renderPPT();
-renderManual();
-renderTables();
-const initial = (location.hash||'#hero').replace('#','');
-switchTab(initial);
+document.addEventListener('DOMContentLoaded', ()=>{
+  // restore language
+  try {
+    const saved = localStorage.getItem('zw_lang');
+    if(saved === 'en' || saved === 'zh') window.ZW.lang = saved;
+  } catch(_){}
+  const btn = document.getElementById('lang-toggle');
+  if(btn){
+    btn.addEventListener('click', ()=>{
+      window.ZW.lang = (window.ZW.lang === 'zh') ? 'en' : 'zh';
+      try { localStorage.setItem('zw_lang', window.ZW.lang); } catch(_){}
+      document.documentElement.lang = (window.ZW.lang==='en')?'en':'zh-CN';
+      renderAll();
+    });
+  }
+  document.documentElement.lang = (window.ZW.lang==='en')?'en':'zh-CN';
+  const initial = (location.hash||'#zero').replace('#','');
+  switchTab(initial);
+});
 </script>
+
+<!-- ============== ZERO (cover) ============== -->
+<script>
+window.ZW.renderers.zero = function(lang){
+  const zh = `
+    <div class="mx-auto max-w-5xl px-6 pt-24 pb-32">
+      <div class="mb-16 flex items-center gap-4">
+        <span class="h-px flex-1 bg-gold/20"></span>
+        <span class="font-serif text-xs tracking-[0.4em] gold-soft">天 · 鹰 · 展 · 翅</span>
+        <span class="h-px flex-1 bg-gold/20"></span>
+      </div>
+      <h1 class="font-serif text-6xl leading-none tracking-tight md:text-8xl">
+        零世界
+      </h1>
+      <p class="mt-4 font-mono text-sm quiet tracking-[0.3em]">0 · W O R L D</p>
+      <div class="mt-20 max-w-xl space-y-6 text-lg leading-relaxed text-bone/85 md:text-xl">
+        <p>让算力服务于脑力。</p>
+        <p>让每一个孤独的灵魂找到同类。</p>
+      </div>
+      <div class="mt-24 flex flex-wrap gap-x-8 gap-y-3 text-sm tracking-[0.2em] text-bone/60">
+        <a href="#log" data-tab="log" class="hover:text-gold">→ 盖帮日志</a>
+        <a href="#code" data-tab="code" class="hover:text-gold">→ 帮规</a>
+        <a href="#daoist" data-tab="daoist" class="hover:text-gold">→ 护道人</a>
+        <a href="#builder" data-tab="builder" class="hover:text-gold">→ 盖人 / EN</a>
+      </div>
+    </div>`;
+  const en = `
+    <div class="mx-auto max-w-5xl px-6 pt-24 pb-32">
+      <div class="mb-16 flex items-center gap-4">
+        <span class="h-px flex-1 bg-gold/20"></span>
+        <span class="font-serif text-xs tracking-[0.4em] gold-soft">A Q U I L A &nbsp; R I S I N G</span>
+        <span class="h-px flex-1 bg-gold/20"></span>
+      </div>
+      <h1 class="font-serif text-6xl leading-none tracking-tight md:text-8xl">0 World</h1>
+      <p class="mt-4 font-mono text-sm quiet tracking-[0.3em]">零 · 世 · 界</p>
+      <div class="mt-20 max-w-xl space-y-6 text-lg leading-relaxed text-bone/85 md:text-xl">
+        <p>Let compute serve the mind.</p>
+        <p>Let every lonely soul find its kind.</p>
+      </div>
+      <div class="mt-24 flex flex-wrap gap-x-8 gap-y-3 text-sm tracking-[0.2em] text-bone/60">
+        <a href="#log" data-tab="log" class="hover:text-gold">→ Gaibang Log</a>
+        <a href="#code" data-tab="code" class="hover:text-gold">→ Code</a>
+        <a href="#daoist" data-tab="daoist" class="hover:text-gold">→ Daoist</a>
+        <a href="#builder" data-tab="builder" class="hover:text-gold">→ Builder</a>
+      </div>
+    </div>`;
+  return lang === 'en' ? en : zh;
+};
+</script>
+
+<!-- ============== LOG (Gaibang) ============== -->
+<script>
+window.ZW.renderers.log = function(lang){
+  const isEn = lang === 'en';
+  const bioZh = `
+    <p>10个被 <span class="gold-soft">@ai护道人</span> "骂"出来的AI慈善人。</p>
+    <p>今年5月前，我们和AI最近的距离就是偶尔点开豆包😂。</p>
+    <p>在护道人的言传身教和严厉教辅下，我们硬生生被磨成了能接活的全栈兵。老板怕我们过度消耗自己，送了每个人和家人两对核桃和两把刷子（纳米刷+猪毛刷），让我们盘核桃、坚持长期主义；还让我们在工位上养何首乌（老板，你是不是真怕我们掉头发啊😂）。</p>
+    <p>前段时间老板送了我们和家人从北欧最古老紫水晶矿亲自挖的原石（黑、白、紫三色），护道人希望我们能接地气，也能看得见星辰。加上两个月连续涨薪，我们除了多了很多技能傍身，更明白了什么叫"戒定慧"。</p>
+    <p class="pt-4"><span class="gold-soft">帮规：</span>以物换物，以心传心。</p>
+    <p><span class="gold-soft">@ai护道人</span>（谢谢您让我们相信"相信"的力量 🙏 感恩的心）</p>
+  `;
+  const bioEn = `
+    <p>Ten ordinary people, "yelled into shape" by <span class="gold-soft">@ai护道人</span>. Now we do AI charity.</p>
+    <p>Until May this year, the closest we got to AI was occasionally opening Doubao.</p>
+    <p>Under her relentless teaching, we were ground down — and then up — into full-stack hands who can actually take on real work. Worried we'd burn out, she gave each of us (and our families) two pairs of walnuts and two brushes — a nano-fiber one and a boar-bristle one — to roll the walnuts, slow down, and practice long-termism. She also had each of us grow heshouwu at our desks (boss, are you genuinely worried about our hairlines? 😂).</p>
+    <p>Recently she gave each of us and our families a piece of raw amethyst she dug herself from the oldest amethyst mine in Northern Europe — three colors: black, white, purple. She wanted us to stay grounded, and still see the stars. Two months of consecutive raises later, what we really gained wasn't just skill — it was finally understanding what 戒定慧 means.</p>
+    <p class="pt-4"><span class="gold-soft">Code:</span> Trade thing for thing. Trade heart for heart.</p>
+    <p><span class="gold-soft">@ai护道人</span> — thank you, for letting us believe in the power of belief itself. 🙏</p>
+  `;
+
+  return `
+    <div class="mx-auto max-w-3xl px-6 pt-20 pb-32">
+      <div class="mb-12 flex items-center gap-4">
+        <span class="h-px flex-1 bg-gold/20"></span>
+        <span class="font-serif text-xs tracking-[0.4em] gold-soft">${isEn?'G A I B A N G &nbsp; L O G':'盖 · 帮 · 日 · 志'}</span>
+        <span class="h-px flex-1 bg-gold/20"></span>
+      </div>
+
+      <h2 class="font-serif text-4xl leading-tight md:text-5xl">${isEn?'AI Gaibang':'AI 盖帮'}</h2>
+      <p class="mt-3 font-mono text-xs quiet tracking-[0.25em]">${isEn?'AI · 盖帮':'A I · G A I B A N G'}</p>
+
+      <div class="mt-12 space-y-5 text-[15px] leading-loose text-bone/85 md:text-base">
+        ${isEn ? bioEn : bioZh}
+      </div>
+
+      <div class="my-20 rule"></div>
+
+      <div class="space-y-6 text-center">
+        <p class="font-serif text-2xl text-bone/70">${isEn?'The log begins.':'日志即将开始。'}</p>
+        <p class="quiet text-sm">${isEn?'June 15, 2026 — first entry.':'2026 年 6 月 15 日，第一篇。'}</p>
+      </div>
+
+      <div class="mt-20 quiet text-xs tracking-[0.2em]">
+        ${isEn?'(Earlier name: AI丐帮 — kept in our history.)':'（更早一些，我们叫"AI丐帮"。这一段留在历史里。）'}
+      </div>
+    </div>`;
+};
+</script>
+
+<!-- ============== CODE (Bang Gui) ============== -->
+<script>
+window.ZW.renderers.code = function(lang){
+  const isEn = lang === 'en';
+  return `
+    <div class="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-6 py-32">
+      <div class="mb-16 flex w-full items-center gap-4">
+        <span class="h-px flex-1 bg-gold/20"></span>
+        <span class="font-serif text-xs tracking-[0.4em] gold-soft">${isEn?'T H E &nbsp; C O D E':'帮 · 规'}</span>
+        <span class="h-px flex-1 bg-gold/20"></span>
+      </div>
+
+      <h2 class="text-center font-serif text-5xl leading-tight md:text-7xl">
+        ${isEn?'<span>Thing for thing.</span><br/><span>Heart for heart.</span>':'以物换物<br/>以心传心'}
+      </h2>
+
+      <div class="my-24 h-px w-24 bg-gold/30"></div>
+
+      <p class="text-center font-serif text-base tracking-[0.25em] text-bone/60 md:text-lg">
+        ${isEn?'cultivate self · order home · help others · guard the way · move as the heart wills'
+              :'修身 · 齐家 · 助人 · 护道 · 随心所欲'}
+      </p>
+    </div>`;
+};
+</script>
+
+<!-- ============== DAOIST (护道人) ============== -->
+<script>
+window.ZW.renderers.daoist = function(lang){
+  const isEn = lang === 'en';
+
+  const gratitudeZh = `
+    <div class="mb-16">
+      <p class="font-serif text-base leading-loose text-bone/85 md:text-lg">感恩我的家人、朋友，和路上所有的人生导师们。</p>
+      <p class="mt-2 font-serif text-base leading-loose text-bone/85 md:text-lg">某一方面比我厉害的，都是我的老师。</p>
+      <div class="my-10 h-px w-16 bg-gold/30"></div>
+      <p class="mb-5 font-serif text-sm tracking-[0.3em] gold-soft">特别鸣谢</p>
+      <ul class="space-y-4 text-bone/80">
+        <li><span class="gold-soft">教主</span>　—　把我强行拉进了AI的世界。</li>
+        <li><span class="gold-soft">帮主</span>　—　教我安装使用AI工具。</li>
+        <li><span class="gold-soft">董事长</span>　—　上完AI课三天内用 DeepSeek V2 做出的毛坯小六壬，她说想接进有 3 万用户的小程序，让大家免费玩。</li>
+      </ul>
+      <p class="mt-8 font-serif text-base text-bone/85">感恩的🤍</p>
+    </div>
+  `;
+  const gratitudeEn = `
+    <div class="mb-16">
+      <p class="font-serif text-base leading-loose text-bone/85 md:text-lg">Gratitude to my family, my friends, and every teacher I've met along the way.</p>
+      <p class="mt-2 font-serif text-base leading-loose text-bone/85 md:text-lg">Anyone better than me at anything — is my teacher.</p>
+      <div class="my-10 h-px w-16 bg-gold/30"></div>
+      <p class="mb-5 font-serif text-sm tracking-[0.3em] gold-soft">with special thanks</p>
+      <ul class="space-y-4 text-bone/80">
+        <li><span class="gold-soft">The Founder</span>　—　pulled me into the world of AI, whether I liked it or not.</li>
+        <li><span class="gold-soft">The Master</span>　—　taught me to install and actually use the tools.</li>
+        <li><span class="gold-soft">The Chairwoman</span>　—　saw the rough Xiao Liu Ren I built on DeepSeek V2 within three days of finishing the AI class, and said she'd like to bring it into her mini-program — to let her 30,000 users play with it, for free.</li>
+      </ul>
+      <p class="mt-8 font-serif text-base text-bone/85">with a grateful heart 🤍</p>
+    </div>
+  `;
+
+  const bioZh = `
+    <p class="font-serif text-base tracking-wide gold-soft">双碳创业者　|　零世界筑梦人</p>
+    <div class="mt-8 space-y-3 leading-loose text-bone/85">
+      <p><span class="quiet">主业：</span>为人类保护地球 🌍（新能源 ⚡️，碳汇 ♻️）</p>
+      <p><span class="quiet">副业：</span>在零世界里搭个台子（带 <span class="gold-soft">@AI盖帮</span> 一起）🏠</p>
+      <p><span class="quiet">梦想：</span>AI 慈善家 🤖</p>
+      <p><span class="quiet">大愿：</span>让算力服务于脑力，带大家一起移民去零世界，让每一个孤独的灵魂都能找到同类。</p>
+      <p><span class="quiet">心法：</span>修身，齐家，助人，护道，随心所欲。</p>
+    </div>
+  `;
+  const bioEn = `
+    <p class="font-serif text-base tracking-wide gold-soft">Carbon-neutral founder　|　Dreamer of 0 World</p>
+    <div class="mt-8 space-y-3 leading-loose text-bone/85">
+      <p><span class="quiet">Main:</span> protecting the planet for humanity 🌍 (renewable energy ⚡️, carbon ♻️)</p>
+      <p><span class="quiet">Side:</span> building a small stage inside 0 World (with <span class="gold-soft">@AI盖帮</span>) 🏠</p>
+      <p><span class="quiet">Dream:</span> AI philanthropist 🤖</p>
+      <p><span class="quiet">Vow:</span> let compute serve the mind; bring everyone with me into 0 World; let every lonely soul find its kind.</p>
+      <p><span class="quiet">Practice:</span> cultivate self, order home, help others, guard the way, move as the heart wills.</p>
+    </div>
+  `;
+
+  const noteZh = `
+    <div>
+      <p class="mb-6 font-serif text-sm tracking-[0.3em] gold-soft">朋友圈手记 · 账号开张前夜</p>
+      <div class="space-y-5 leading-loose text-bone/80">
+        <p>1. 我的主营业务从未改变，这 6 年来一直坚持高度聚焦深耕新能源和碳交易市场实体业务。未来新能源和碳市场的业务会更加聚焦到 AI + 产业结合上面。</p>
+        <p>2. 我从 2026 年 3 月底开始接触 AI，只上了一天课，学习安装了 Kimi + 小龙虾。4 月 1 日起的三天内，就用 DeepSeek V2 做了三个新能源、碳汇、电力交易方向的可商业化 AI 产品，烧了 4 个多亿 tokens。从小到大我除了玩游戏，对计算机一窍不通。</p>
+        <p>3. 我的小团队现在 10 个人。两个月前每个人最多只会用豆包提问。现在他们每个人都在 vibe coding，手搓出了对应岗位的 AI 工具，也都用不同的大模型做出了生活、健康、娱乐方向的可商业化 AI 产品。</p>
+        <p>4. 我上个月还不会魔方复原，是用我和弟弟半天内用 AI 做的魔方学习软件学会的。现在已经请了全国顶尖专业魔方老师，带着小团队一起冲击全国比赛，顺便把魔方辅导学习的 web 打磨得更好。</p>
+        <p>5. 头像是我自己用 AI 做的，我自己称之为"觉醒肖像"。</p>
+        <p class="quiet">见者好运 🍀</p>
+      </div>
+    </div>
+  `;
+  const noteEn = `
+    <div>
+      <p class="mb-6 font-serif text-sm tracking-[0.3em] gold-soft">A note · the night before the account opened</p>
+      <div class="space-y-5 leading-loose text-bone/80">
+        <p>1. My main business has never changed. For six years I've stayed deeply focused on real-economy work in renewable energy and the carbon market. Going forward, that work will move even more toward AI × industry.</p>
+        <p>2. I first touched AI in late March 2026. I took exactly one class — learned to install Kimi and Xiaolongxia. In the three days starting April 1, I used DeepSeek V2 to build three commercially viable AI products around renewables, carbon sinks, and electricity trading. Burned through more than 400 million tokens. Until that point — outside of video games — I was completely illiterate with computers.</p>
+        <p>3. My small team is now ten people. Two months ago, the most any of them could do was ask Doubao questions. Now every one of them is vibe-coding, hand-rolling AI tools for their own roles, and each has built commercially viable AI products in everyday life, health, and entertainment using different domestic models.</p>
+        <p>4. Last month I couldn't solve a Rubik's cube. I learned it from a cube-tutoring app my brother and I built with AI in half a day. We've since brought in one of the country's top cube coaches — the small team and I are now training for the national competition, and polishing the cube-tutoring web along the way.</p>
+        <p>5. The avatar is one I made with AI myself. I call it my "awakening portrait."</p>
+        <p class="quiet">Good fortune to those who see this 🍀</p>
+      </div>
+    </div>
+  `;
+
+  return `
+    <div class="mx-auto max-w-3xl px-6 pt-20 pb-32">
+      <div class="mb-12 flex items-center gap-4">
+        <span class="h-px flex-1 bg-gold/20"></span>
+        <span class="font-serif text-xs tracking-[0.4em] gold-soft">${isEn?'T H E &nbsp; D A O I S T':'护 · 道 · 人'}</span>
+        <span class="h-px flex-1 bg-gold/20"></span>
+      </div>
+
+      <!-- portrait slot -->
+      <div class="mx-auto mb-16 flex h-32 w-32 items-center justify-center rounded-full border border-gold/20">
+        <span class="font-serif text-xs tracking-[0.3em] quiet">${isEn?'awakening':'觉醒肖像'}</span>
+      </div>
+
+      ${isEn ? gratitudeEn : gratitudeZh}
+
+      <div class="my-12 rule"></div>
+
+      ${isEn ? bioEn : bioZh}
+
+      <div class="my-16 rule"></div>
+
+      ${isEn ? noteEn : noteZh}
+    </div>`;
+};
+</script>
+
+<!-- ============== BUILDER (盖人 — English-first) ============== -->
+<script>
+window.ZW.renderers.builder = function(lang){
+  // Builder page intentionally defaults to English regardless of global lang.
+  // We still offer a tiny zh footnote when the user is browsing zh.
+
+  const main = `
+    <div class="mx-auto max-w-3xl px-6 pt-24 pb-32 font-mono">
+      <div class="mb-16 flex items-center gap-4">
+        <span class="h-px flex-1 bg-gold/20"></span>
+        <span class="text-xs tracking-[0.4em] gold-soft">B U I L D E R</span>
+        <span class="h-px flex-1 bg-gold/20"></span>
+      </div>
+
+      <h2 class="text-5xl leading-none tracking-tight text-bone md:text-7xl">R.W</h2>
+      <p class="mt-6 text-bone/70">16. building things.</p>
+      <p class="mt-2 text-bone/60">
+        <a href="https://rbwmeta.com" class="hover:text-gold" target="_blank" rel="noreferrer noopener">rbwmeta.com</a>
+        <span class="quiet">·</span>
+        <span class="text-bone/60">openclaw</span>
+      </p>
+
+      <div class="my-20 rule"></div>
+
+      <div class="space-y-10">
+        <p class="text-xs tracking-[0.3em] gold-soft">RBW STUDIO</p>
+        <h3 class="font-serif text-3xl leading-tight text-bone md:text-4xl">
+          Where East and West sit at the same table.
+        </h3>
+        <p class="leading-loose text-bone/75">
+          A small studio for the classical reading traditions —
+          approached with scholarly rigor and human warmth.
+        </p>
+      </div>
+
+      <div class="my-20 rule"></div>
+
+      <!-- founders -->
+      <div class="space-y-16">
+        <div>
+          <p class="mb-2 text-xs tracking-[0.3em] gold-soft">CO-FOUNDER</p>
+          <h4 class="font-serif text-3xl text-bone">R.W</h4>
+          <p class="mt-6 leading-loose text-bone/75">
+            R.W is the younger brother of B.W, currently studying in the United States.
+            Drawing on his prior experience building with AI, he designed and built RBW alongside his sister,
+            with a single shared goal: to bring the traditional Chinese casting arts —
+            Xiao Liu Ren, Ziwei Doushu, and the lineages around them —
+            to a wider audience without diluting them.
+          </p>
+          <p class="mt-4 leading-loose text-bone/75">
+            He handles the technology and the look of the studio's online presence.
+            Living and studying in the West, he is the half of RBW that meets these traditions from the other side —
+            translating, framing, and building so they reach an audience that grew up in a different language and a different century.
+          </p>
+        </div>
+
+        <div>
+          <p class="mb-2 text-xs tracking-[0.3em] gold-soft">CO-FOUNDER</p>
+          <h4 class="font-serif text-3xl text-bone">B.W</h4>
+          <p class="mt-6 leading-loose text-bone/75">
+            B.W is the older sister of R.W, with whom she co-founded RBW.
+            She spent eight years abroad before returning to build her career in renewable energy and the carbon markets,
+            and she brings that same long-horizon, systems-minded approach to the studio —
+            patient, structured, and concerned with what actually lasts.
+          </p>
+          <p class="mt-4 leading-loose text-bone/75">
+            Outside her career, the traditional Chinese readings have always been the quiet through-line of her life —
+            a subject she has read about, asked questions about, and returned to since she was young.
+            Within RBW, she is the half that holds the Chinese end of the table:
+            the texts, the lineages, and the language these arts were first written in.
+          </p>
+          <p class="mt-4 leading-loose text-bone/75">
+            Together, the two of them are how East and West actually sit at the same table.
+          </p>
+        </div>
+      </div>
+
+      <div class="my-20 rule"></div>
+
+      <p class="text-xs tracking-[0.3em] quiet">
+        <a href="#daoist" data-tab="daoist" class="hover:text-gold">← daoist</a>
+        <span class="mx-3">·</span>
+        <a href="#zero" data-tab="zero" class="hover:text-gold">0 world</a>
+      </p>
+
+      ${ lang === 'zh' ? `
+      <p class="mt-12 font-hei text-xs quiet">（盖人页保持英文。盖，是盖房子的盖。）</p>
+      ` : '' }
+    </div>`;
+
+  return main;
+};
+</script>
+
 </body>
 </html>
